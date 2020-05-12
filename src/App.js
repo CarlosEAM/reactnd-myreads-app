@@ -98,11 +98,77 @@ class Bookshelf extends Component {
   }
 }
 
+
+/**
+ * @description creates search bar
+ */
+class SearchBar extends Component {
+  render() {
+    const {updateQuery} = this.props;
+    return (
+      <div className="search-bar">
+        <input
+          className="input-text"
+          type="text"
+          placeholder="Search book colletion"
+          onChange={(event) => updateQuery(event.target.value)} />
+      </div>
+    )
+  }
+}
+
+/**
+ * @description Display search results
+ */
+function SearchResult(props) {
+  const result = (typeof props.searchResults === 'string') ? props.searchResults : props.searchResults.map(book => (
+    <Book key={book.title} book={book} bookGroups={props.bookGroups} />
+  ));
+
+  return(
+    <div className="search-results">
+      {result}
+    </div>
+  );
+}
+
+/**
+ * @description Handles the Search page components
+ */
+class SearchPage extends Component {
+  state = {
+    query: ''
+  }
+
+  // Will instigate a page render
+  updateQuery = (query) => {
+    this.setState(() => ({
+      query: query
+    }))
+  }
+
+  render() {
+    // Do book search
+    let searchResults = this.state.query === '' ? 'Search Results...' : this.props.bookList.filter(book => (
+      book.title.toLowerCase().includes(this.state.query.toLowerCase())
+    ));
+    console.log(searchResults);
+
+    return (
+      <section className="search-page">
+        <SearchBar updateQuery={this.updateQuery} />
+        <SearchResult searchResults={searchResults} bookGroups={this.props.bookGroups} />
+      </section>
+    );
+  }
+}
+
 function App() {
 
   return (
     <div className="App">
       <h1>MyReads</h1>
+      <SearchPage bookList={bookCollection} bookGroups={bookGroups} />
       <Bookshelf bookList={bookCollection} bookGroups={bookGroups} />
     </div>
   );
