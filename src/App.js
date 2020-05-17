@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 
-
+// TODO: delete DEMO book collection
 const bookCollection = [
   {
     id: "eefd1", 
@@ -185,14 +185,14 @@ class Bookshelf extends Component {
 
 
 /**
- * @description creates search bar
+ * @description Creates the search bar
  */
 class SearchBar extends Component {
   state = {
     query: ''
   }
 
-  // Will instigate a page render
+  // Its own source of truth
   updateQuery = (query) => {
     this.setState(() => ({
       query: query
@@ -200,14 +200,14 @@ class SearchBar extends Component {
   }
 
   render() {
-    const {updateQuery} = this.props;
     return (
       <div className="search-bar">
         <input
           className="input-text"
           type="text"
           placeholder="Search book colletion"
-          onChange={(event) => updateQuery(event.target.value)} />
+          onChange={(event) => this.updateQuery(event.target.value)}
+        />
       </div>
     )
   }
@@ -215,34 +215,44 @@ class SearchBar extends Component {
 
 /**
  * @description Display search results
+ * @param {object} props.listOfShelves - list of book shelves to pass to ShelfControlBox component
  */
-function SearchResult(props) {
-  const result = (typeof props.searchResults === 'string') ? props.searchResults : props.searchResults.map(book => (
-    <BookCard key={book.title} book={book} bookGroups={props.bookGroups} />
-  ));
-
-  return(
-    <div className="search-results">
-      {result}
-    </div>
-  );
+class SearchResult extends Component {
+  render() {
+    return(
+      <div className="search-results">
+        {bookCollection.map(book => (
+          <BookCard aBook={book} listOfShelves={this.props.listOfShelves} />
+        ))}
+      </div>
+    );
+  }
 }
 
 /**
- * @description Handles the Search page components
+ * @description Creates the Search page component
  */
 class SearchPage extends Component {
-  
+  shelves = [
+    {
+      name: "Currently Reading",
+      slug: "currentlyReading"
+    },
+    {
+      name: "Want To Read",
+      slug: "wantToRead"
+    },
+    {
+      name: "Read",
+      slug: "read"
+    }
+  ];
 
   render() {
-    // Do book search
-    let searchResults = this.state.query === '' ? 'Search Results...' : this.props.bookList.filter(book => (
-      book.title.toLowerCase().includes(this.state.query.toLowerCase())
-    ));
-
     return (
       <section className="search-page">
-        <SearchBar updateQuery={this.updateQuery} />
+        <SearchBar />
+        <SearchResult listOfShelves={this.shelves} />
       </section>
     );
   }
@@ -253,10 +263,8 @@ function App() {
   return (
     <div className="App">
       <h1>MyReads</h1>
-      <Bookshelf />
     </div>
   );
 }
-// <SearchPage bookList={bookCollection} bookGroups={bookGroups} />
 
 export default App;
