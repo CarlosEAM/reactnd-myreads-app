@@ -3,76 +3,130 @@ import './App.css';
 
 
 const bookCollection = [
-  {category: "Currently Reading", title: "What up vietnam", authors: "Carlos EAM, Alfonso", img: "./logo512.png", group: 1},
-  {category: "None", title: "Well if tomorrow", authors: "Pickard Ave", img: "./logo512.png", group: 4},
-  {category: "Want to Read", title: "Something more", authors: "Sarah Commitment", img: "./logo512.png", group: 2},
-  {category: "Read", title: "Hats, are for all", authors: "Amy L Sutton", img: "./logo512.png", group: 3},
-  {category: "Currently Reading", title: "In the clouds", authors: "Sarah Commitment", img: "./logo512.png", group: 1}
+  {
+    id: "eefd1", 
+    shelf: "currentlyReading",
+    title: "What up vietnam",
+    authors: ["Carlos EAM", "Alfonso"],
+    imageLinks: {
+      smallThumbnail: "./logo512.png",
+      thumbnail: "./logo512.png"
+    },
+  },
+  {
+    id: "eefd2", 
+    shelf: "none",
+    title: "Well if tomorrow",
+    authors: ["Pickard Ave"],
+    imageLinks: {
+      smallThumbnail: "./logo512.png",
+      thumbnail: "./logo512.png"
+    },
+  },
+  {
+    id: "eefd3", 
+    shelf: "wantToRead",
+    title: "Something more",
+    authors: ["Sarah Commitment"],
+    imageLinks: {
+      smallThumbnail: "./logo512.png",
+      thumbnail: "./logo512.png"
+    },
+  },
+  {
+    id: "eefd4", 
+    shelf: "read",
+    title: "Hats, are for all",
+    authors: ["Amy L Sutton"],
+    imageLinks: {
+      smallThumbnail: "./logo512.png",
+      thumbnail: "./logo512.png"
+    },
+  },
+  {
+    id: "eefd5", 
+    shelf: "currentlyReading",
+    title: "In the clouds",
+    authors: ["Sarah Commitment", "Amy L Sutton"],
+    imageLinks: {
+      smallThumbnail: "./logo512.png",
+      thumbnail: "./logo512.png"
+    },
+  }
 ];
 
-const bookGroups = [
-  'Currently Reading',
-  'Want to Read',
-  'Read'
-];
 
 /**
- * @description Create a Control Box
- * @param {object} props.bookGroup - the group the book belongs to
- * @param {object} props.bookGroups - list of book groups
+ * @description Create a Shelf Control Box to view and amend where a book belongs
+ * @param {object} props.shelf - the shelf the book belongs to
+ * @param {array} props.listOfShelves - list of book shelves objects
  */
-class ControlBox extends Component {
+const ShelfControlBox = props => {
+  console.log("CHANGE: ", Object.values(props.listOfShelves));
+  return (
+    <ol className="control-box">
+      {props.listOfShelves.map(shelf => {
+        if (shelf.slug === props.shelf) {
+          return <li key={props.bookID} className="control-box-selected">{shelf.name}</li>
+        }else{
+          return <li key={props.bookID}>{shelf.name}</li>
+        }
+      })}
+    </ol>
+  );
+}
+
+/**
+ * @description Creates a Book
+ * @param {object} props.aBook - a book to compose
+ * @param {object} props.listOfShelves - list of book shelves to pass to ShelfControlBox component
+ */
+class BookCard extends Component {
   render() {
     return (
-      <div className="control-box">
-        {this.props.bookGroups.map(group => {
-          if (group === this.props.group) {
-            return <p key={group} className="control-box-selected">{group}</p>
-          }else{
-            return <p key={group}>{group}</p>
-          }
-        })}
+      <div className="book">
+        <img src={this.props.aBook.imageLinks.thumbnail} className="book-img" width="100" height="100" alt="" />
+        <p className="book-title">{this.props.aBook.title}</p>
+        <div className="book-author">
+          {this.props.aBook.authors.map(author => (
+            <p key={author}>{author}</p>
+          ))}
+        </div>
+        <ShelfControlBox shelf={this.props.aBook.shelf} listOfShelves={this.props.listOfShelves} />
       </div>
     );
   }
 }
 
 /**
- * @description Create a Book
- * @param {object} props.book - book to compose
- * @param {object} props.bookGroups - to pass to control box
- */
-class Book extends Component {
-  render() {
-    return (
-      <article className="book">
-        <img src={this.props.book.img} className="book-img" width="100" height="100" alt="" />
-        <p className="book-title">{this.props.book.title}</p>
-        <p className="book-author">{this.props.book.authors}</p>
-        <ControlBox group={this.props.book.category} bookGroups={this.props.bookGroups} />
-      </article>
-    );
-  }
-}
-
-/**
- * @description Creates a Book
- * @param {object} props.bookList - props passed from Bookshelf component
- * @param {object} props.group - current book group
+ * @description Creates a Shelf, with the corresponding books
+ * @param {string} props.name - the name for the current shelf
+ * @param {string} props.slug - the slug for the current shelf
+ * @param {array} props.books - array of book objects to shelf, includes books is all shelves
+ * @param {object} props.listOfShelves - list of book shelves to pass to BookCard component
  */
 class Shelf extends Component {
   render() {
-    let books = [];
-    this.props.bookList.forEach(book => {
-      if (book.category === this.props.group) {
-        books.push(<Book key={book.title} book={book} bookGroups={this.props.bookGroups} />)
-      }      
-    });
+    // Check if building a shelf of selected books or all books
+    let bookList = [];
+    if (this.props.name) {
+      this.props.books.forEach((book, i) => {
+        if (book.shelf === this.props.slug) {
+          bookList.push(book);
+        }
+      });
+    } else {
+      bookList = this.props.books;
+    }
 
     return (
       <section className="shelf">
-        <h3 className="shelf-title">{this.props.group}</h3>
-        <div className="books">{books}</div>
+        <h3 className="shelf-title">{this.props.name}</h3>
+        <div className="books">
+          {bookList.map(book => (
+            <BookCard key={book.id} aBook={book} listOfShelves={this.props.listOfShelves} />
+          ))}
+        </div>
       </section>
     );
   }
@@ -81,18 +135,49 @@ class Shelf extends Component {
 /**
  * @description Creates a Bookshelf
  * @param {object} props.bookList - list of books
- * @param {object} props.bookGroups - list of book groups
  */
 class Bookshelf extends Component {
-  render() {
-    let shelves = this.props.bookGroups.map(group => (
-      <Shelf key={group} group={group} bookList={this.props.bookList} bookGroups={this.props.bookGroups} />
-    ));
+  state = {
+    booksOnShelves: [],
+  }
 
+  shelves = [
+    {
+      name: "Currently Reading",
+      slug: "currentlyReading"
+    },
+    {
+      name: "Want To Read",
+      slug: "wantToRead"
+    },
+    {
+      name: "Read",
+      slug: "read"
+    }
+  ];
+
+  componentDidMount() {
+    this.setBooksOnShelves(bookCollection);
+  }
+
+  /**
+   * @description Place collection of books on t
+   * @param {array} books - An array of book objects
+   */
+  setBooksOnShelves = books => {
+    this.setState(prevState => ({
+      booksOnShelves: [...prevState.booksOnShelves, ...books]
+    }));
+  }
+  
+
+  render() {
     return (
       <section className="bookshelf">
         <h2>BUILDING BOOKSHELF...</h2>
-        <div className="shelves">{shelves}</div>
+        {this.shelves.map(({name, slug}) => (
+          <Shelf key={slug} name={name} slug={slug} books={bookCollection} listOfShelves={this.shelves} />
+        ))}
       </section>
     );
   }
@@ -103,6 +188,17 @@ class Bookshelf extends Component {
  * @description creates search bar
  */
 class SearchBar extends Component {
+  state = {
+    query: ''
+  }
+
+  // Will instigate a page render
+  updateQuery = (query) => {
+    this.setState(() => ({
+      query: query
+    }))
+  }
+
   render() {
     const {updateQuery} = this.props;
     return (
@@ -122,7 +218,7 @@ class SearchBar extends Component {
  */
 function SearchResult(props) {
   const result = (typeof props.searchResults === 'string') ? props.searchResults : props.searchResults.map(book => (
-    <Book key={book.title} book={book} bookGroups={props.bookGroups} />
+    <BookCard key={book.title} book={book} bookGroups={props.bookGroups} />
   ));
 
   return(
@@ -136,28 +232,17 @@ function SearchResult(props) {
  * @description Handles the Search page components
  */
 class SearchPage extends Component {
-  state = {
-    query: ''
-  }
-
-  // Will instigate a page render
-  updateQuery = (query) => {
-    this.setState(() => ({
-      query: query
-    }))
-  }
+  
 
   render() {
     // Do book search
     let searchResults = this.state.query === '' ? 'Search Results...' : this.props.bookList.filter(book => (
       book.title.toLowerCase().includes(this.state.query.toLowerCase())
     ));
-    console.log(searchResults);
 
     return (
       <section className="search-page">
         <SearchBar updateQuery={this.updateQuery} />
-        <SearchResult searchResults={searchResults} bookGroups={this.props.bookGroups} />
       </section>
     );
   }
@@ -168,10 +253,10 @@ function App() {
   return (
     <div className="App">
       <h1>MyReads</h1>
-      <SearchPage bookList={bookCollection} bookGroups={bookGroups} />
-      <Bookshelf bookList={bookCollection} bookGroups={bookGroups} />
+      <Bookshelf />
     </div>
   );
 }
+// <SearchPage bookList={bookCollection} bookGroups={bookGroups} />
 
 export default App;
