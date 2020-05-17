@@ -62,7 +62,6 @@ const bookCollection = [
  * @param {array} props.listOfShelves - list of book shelves objects
  */
 const ShelfControlBox = props => {
-  console.log("CHANGE: ", Object.values(props.listOfShelves));
   return (
     <ol className="control-box">
       {props.listOfShelves.map(shelf => {
@@ -184,85 +183,12 @@ class Bookshelf extends Component {
 }
 
 
-/**
- * @description Creates the search bar
- */
-class SearchBar extends Component {
-  state = {
-    query: ''
-  }
-
-  // Its own source of truth
-  updateQuery = (query) => {
-    this.setState(() => ({
-      query: query
-    }))
-  }
-
-  render() {
-    return (
-      <div className="search-bar">
-        <input
-          className="input-text"
-          type="text"
-          placeholder="Search book colletion"
-          onChange={(event) => this.updateQuery(event.target.value)}
-        />
-      </div>
-    )
-  }
-}
-
-/**
- * @description Display search results
- * @param {object} props.listOfShelves - list of book shelves to pass to ShelfControlBox component
- */
-class SearchResult extends Component {
-  render() {
-    return(
-      <div className="search-results">
-        {bookCollection.map(book => (
-          <BookCard aBook={book} listOfShelves={this.props.listOfShelves} />
-        ))}
-      </div>
-    );
-  }
-}
-
-/**
- * @description Creates the Search page component
- */
-class SearchPage extends Component {
-  shelves = [
-    {
-      name: "Currently Reading",
-      slug: "currentlyReading"
-    },
-    {
-      name: "Want To Read",
-      slug: "wantToRead"
-    },
-    {
-      name: "Read",
-      slug: "read"
-    }
-  ];
-
-  render() {
-    return (
-      <section className="search-page">
-        <SearchBar />
-        <SearchResult listOfShelves={this.shelves} />
-      </section>
-    );
-  }
-}
-
 function App() {
 
   return (
     <div className="App">
       <h1>MyReads</h1>
+      <Bookshelf />
     </div>
   );
 }
