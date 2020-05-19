@@ -62,13 +62,23 @@ const bookCollection = [
  * @param {array} props.listOfShelves - list of book shelves objects
  */
 const ShelfControlBox = props => {
+  let controlList = [];
+  for (let i=0; i<4; i++) {
+    if (i<3) {
+      controlList.push(props.listOfShelves[i].slug)
+    } else {
+      controlList.push("none")
+    }    
+  }
+  console.log(controlList);
   return (
     <ol className="control-box">
-      {props.listOfShelves.map(shelf => {
+      {props.listOfShelves.map((shelf, i) => {
+        const listKey = shelf.slug + shelf.slug.length;
         if (shelf.slug === props.shelf) {
-          return <li key={props.bookID} className="control-box-selected">{shelf.name}</li>
+          return <li key={listKey} className="control-item-selected">{shelf.name}</li>
         }else{
-          return <li key={props.bookID}>{shelf.name}</li>
+          return <li key={listKey}>{shelf.name}</li>
         }
       })}
     </ol>
@@ -88,10 +98,13 @@ class BookCard extends Component {
         <p className="book-title">{this.props.aBook.title}</p>
         <div className="book-author">
           {this.props.aBook.authors.map(author => (
-            <p key={author}>{author}</p>
+            <p key={this.props.aBook.title.length + author.length}>{author}</p>
           ))}
         </div>
-        <ShelfControlBox shelf={this.props.aBook.shelf} listOfShelves={this.props.listOfShelves} />
+        <ShelfControlBox
+          shelf={this.props.aBook.shelf}
+          listOfShelves={this.props.listOfShelves}
+        />
       </div>
     );
   }
@@ -152,6 +165,10 @@ class Bookshelf extends Component {
     {
       name: "Read",
       slug: "read"
+    },
+    {
+      name: "None",
+      slug: "none"
     }
   ];
 
@@ -174,9 +191,11 @@ class Bookshelf extends Component {
     return (
       <section className="bookshelf">
         <h2>BUILDING BOOKSHELF...</h2>
-        {this.shelves.map(({name, slug}) => (
-          <Shelf key={slug} name={name} slug={slug} books={bookCollection} listOfShelves={this.shelves} />
-        ))}
+        {this.shelves.map(({name, slug}) => {
+          if (slug != "none") {
+            return <Shelf key={slug} name={name} slug={slug} books={bookCollection} listOfShelves={this.shelves} />
+          }
+        })}
       </section>
     );
   }
