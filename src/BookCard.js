@@ -6,8 +6,12 @@ import ShelfControlBox from './ShelfControlBox';
  * @description Creates a Book
  * @param {object} props.aBook - a book to compose
  * @param {object} props.listOfShelves - list of book shelves to pass to ShelfControlBox component
+ * @param {function} props.onClick - requests a books new shelf update
  */
 class BookCard extends Component {
+  handleClick = (bookID, bookSlug) => {
+    this.props.onClick(bookID, bookSlug);
+  }
   render() {
     return (
       <div className="book">
@@ -21,6 +25,7 @@ class BookCard extends Component {
         <ShelfControlBox
           shelf={this.props.aBook.shelf}
           listOfShelves={this.props.listOfShelves}
+          onClick={(bookSlug) => this.handleClick(this.props.aBook.id, bookSlug)}
         />
       </div>
     );

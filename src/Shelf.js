@@ -28,7 +28,12 @@ class Shelf extends Component {
         <h3 className="shelf-title">{this.props.name}</h3>
         <div className="books">
           {bookList.map(book => (
-            <BookCard key={book.id} aBook={book} listOfShelves={this.props.listOfShelves} />
+            <BookCard
+              key={book.id}
+              aBook={book}
+              listOfShelves={this.props.listOfShelves}
+              onClick={(id, shelf) => this.props.onBookUpdate(id, shelf)}
+            />
           ))}
         </div>
       </section>

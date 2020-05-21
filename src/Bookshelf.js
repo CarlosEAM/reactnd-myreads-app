@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {getAll} from './BooksAPI';
+import {getAll,update} from './BooksAPI';
 import Shelf from './Shelf';
 
 
@@ -38,25 +38,39 @@ class Bookshelf extends Component {
   }
 
   /**
-   * @description Place collection of books on t
-   * @param {array} books - An array of book objects
+   * @description Update a books current shelf
+   * @param {string} bookID - book id
+   * @param {string} shelf - shelf slug
    */
-  setBooksOnShelves = books => {
+  handleBookUpdate = (bookID, shelf) => {
     this.setState(prevState => ({
-      booksOnShelves: [...prevState.booksOnShelves, ...books]
+      booksOnShelves: prevState.booksOnShelves.filter(book => {
+        if (shelf === "none") return false;
+        if (book.id === bookID) book.shelf = shelf;
+        return book;
+      })
     }));
+    update({id: bookID}, shelf);
   }
-  
 
-  render() {
+  render() {    
     return (
       <section className="bookshelf">
         <h2>BUILDING BOOKSHELF...</h2>
         {this.shelves.map(({name, slug}) => {
           return (slug !== "none") 
-            ? <Shelf key={slug} name={name} slug={slug} books={this.state.booksOnShelves} listOfShelves={this.shelves} /> 
+            ? <Shelf
+                key={slug}
+                name={name}
+                slug={slug}
+                books={this.state.booksOnShelves}
+                listOfShelves={this.shelves}
+                onBookUpdate={this.handleBookUpdate}
+              />
             : false
         })}
+        <button onClick={this.test}>TEST</button>
+        <button onClick={this.checkState}>CHECK STATE</button>
       </section>
     );
   }
