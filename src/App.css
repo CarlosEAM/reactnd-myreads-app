@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+/*BookCard*/
+
+/*This is temporary style to check component behaviour*/
+.control-box {
+  padding: 0;
+}
+.control-box li {
+  list-style: none;
+}
+
+.control-item-selected {
+  color: orange;
+}

@@ -16,7 +16,7 @@ const ShelfControlBox = props => {
     }    
   }
   return (
-    <ol className="control-box">
+    <ul className="control-box">
       {props.listOfShelves.map((shelf, i) => {
         const listKey = shelf.slug + shelf.slug.length;
         if (shelf.slug === props.shelf) {
@@ -25,7 +25,7 @@ const ShelfControlBox = props => {
           return <li key={listKey}>{shelf.name}</li>
         }
       })}
-    </ol>
+    </ul>
   );
 }
 

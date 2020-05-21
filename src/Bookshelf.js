@@ -1,59 +1,7 @@
 import React, {Component} from 'react';
+import {getAll} from './BooksAPI';
 import Shelf from './Shelf';
 
-// TODO: delete DEMO book collection
-const bookCollection = [
-  {
-    id: "eefd1", 
-    shelf: "currentlyReading",
-    title: "What up vietnam",
-    authors: ["Carlos EAM", "Alfonso"],
-    imageLinks: {
-      smallThumbnail: "./logo512.png",
-      thumbnail: "./logo512.png"
-    },
-  },
-  {
-    id: "eefd2", 
-    shelf: "none",
-    title: "Well if tomorrow",
-    authors: ["Pickard Ave"],
-    imageLinks: {
-      smallThumbnail: "./logo512.png",
-      thumbnail: "./logo512.png"
-    },
-  },
-  {
-    id: "eefd3", 
-    shelf: "wantToRead",
-    title: "Something more",
-    authors: ["Sarah Commitment"],
-    imageLinks: {
-      smallThumbnail: "./logo512.png",
-      thumbnail: "./logo512.png"
-    },
-  },
-  {
-    id: "eefd4", 
-    shelf: "read",
-    title: "Hats, are for all",
-    authors: ["Amy L Sutton"],
-    imageLinks: {
-      smallThumbnail: "./logo512.png",
-      thumbnail: "./logo512.png"
-    },
-  },
-  {
-    id: "eefd5", 
-    shelf: "currentlyReading",
-    title: "In the clouds",
-    authors: ["Sarah Commitment", "Amy L Sutton"],
-    imageLinks: {
-      smallThumbnail: "./logo512.png",
-      thumbnail: "./logo512.png"
-    },
-  }
-];
 
 /**
  * @description Creates a Bookshelf
@@ -84,7 +32,9 @@ class Bookshelf extends Component {
   ];
 
   componentDidMount() {
-    this.setBooksOnShelves(bookCollection);
+    getAll().then(books => this.setState({
+      booksOnShelves: books
+    }));
   }
 
   /**
@@ -104,7 +54,7 @@ class Bookshelf extends Component {
         <h2>BUILDING BOOKSHELF...</h2>
         {this.shelves.map(({name, slug}) => {
           return (slug !== "none") 
-            ? <Shelf key={slug} name={name} slug={slug} books={bookCollection} listOfShelves={this.shelves} /> 
+            ? <Shelf key={slug} name={name} slug={slug} books={this.state.booksOnShelves} listOfShelves={this.shelves} /> 
             : false
         })}
       </section>
