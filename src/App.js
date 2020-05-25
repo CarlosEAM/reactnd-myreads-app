@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import {search} from './BooksAPI';
+import {update, search} from './BooksAPI';
 import BookCard from './BookCard';
 
 
@@ -18,7 +18,7 @@ e) The user is able to search for multiple words, such as “artificial intellig
 f) Do selections made on the search page show up on the main page?.
 
 DONE:
-a, b, c, d, e
+a, b, c, d, e, f
 */
 
 
@@ -56,7 +56,12 @@ class SearchResult extends Component {
     let results = (typeof this.props.booksFound === "string")
       ? this.props.booksFound
       : this.props.booksFound.map(book => (
-        <BookCard key={book.id} aBook={book} listOfShelves={this.props.listOfShelves} />
+        <BookCard
+          key={book.id}
+          aBook={book}
+          listOfShelves={this.props.listOfShelves}
+          onClick={(id, shelf) => this.props.onBookUpdate(id, shelf)}
+        />
       ));
     // console.log(results)
     return(
@@ -128,6 +133,15 @@ class SearchPage extends Component {
     });
   }
 
+  /**
+   * @description Update a books shelf
+   * @param {string} bookID - book id
+   * @param {string} shelf - shelf slug
+   */
+  handleBookUpdate = (bookID, shelf) => {
+    update({id: bookID}, shelf);
+  }
+
   getBooks = () => {
     search(this.state.query).then(results => {
       // console.log("FETCH THE BOOKS")
@@ -170,7 +184,7 @@ class SearchPage extends Component {
     return (
       <section className="search-page">
         <SearchBar onInputChange={this.handleInputChange} inputValue={this.state.query} />
-        <SearchResult listOfShelves={this.shelves} booksFound={this.state.booksFound} />
+        <SearchResult listOfShelves={this.shelves} booksFound={this.state.booksFound} onBookUpdate={this.handleBookUpdate} />
       </section>
     );
   }
