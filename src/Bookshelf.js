@@ -74,8 +74,6 @@ class Bookshelf extends Component {
               />
             : false
         })}
-        <button onClick={this.test}>TEST</button>
-        <button onClick={this.checkState}>CHECK STATE</button>
       </section>
     );
   }

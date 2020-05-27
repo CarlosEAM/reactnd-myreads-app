@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import {update, search} from './BooksAPI';
 import SearchBar from './SearchBar';
 import SearchResult from './SearchResult';
@@ -102,7 +103,7 @@ class SearchPage extends Component {
     return (
       <section className="search-page">
         <Link
-          to="/home"
+          to="/"
           className="nav-home-btn"
         >Back</Link>
         <SearchBar onInputChange={this.handleInputChange} inputValue={this.state.query} />
