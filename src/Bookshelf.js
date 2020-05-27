@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import {getAll,update} from './BooksAPI';
 import Shelf from './Shelf';
 
@@ -56,6 +57,10 @@ class Bookshelf extends Component {
   render() {    
     return (
       <section className="bookshelf">
+        <Link
+          to="/search"
+          className="nav-search-btn"
+        >Search</Link>
         <h2>BUILDING BOOKSHELF...</h2>
         {this.shelves.map(({name, slug}) => {
           return (slug !== "none") 

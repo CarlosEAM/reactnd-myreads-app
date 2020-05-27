@@ -101,6 +101,10 @@ class SearchPage extends Component {
   render() {
     return (
       <section className="search-page">
+        <Link
+          to="/home"
+          className="nav-home-btn"
+        >Back</Link>
         <SearchBar onInputChange={this.handleInputChange} inputValue={this.state.query} />
         <SearchResult listOfShelves={this.shelves} booksFound={this.state.booksFound} onBookUpdate={this.handleBookUpdate} />
       </section>
