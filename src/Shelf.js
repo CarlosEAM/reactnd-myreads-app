@@ -7,7 +7,8 @@ import BookCard from './BookCard';
  * @param {string} props.name - the name for the current shelf
  * @param {string} props.slug - the slug for the current shelf
  * @param {array} props.books - array of book objects to shelf, includes books is all shelves
- * @param {object} props.listOfShelves - list of book shelves to pass to BookCard component
+ * @param {object} props.shelves - list of available book shelves
+ * @param {function} props.onBookUpdate - function to update a books shelf
  */
 class Shelf extends Component {
   render() {
@@ -31,8 +32,8 @@ class Shelf extends Component {
             <BookCard
               key={book.id}
               aBook={book}
-              listOfShelves={this.props.listOfShelves}
-              onClick={(id, shelf) => this.props.onBookUpdate(id, shelf)}
+              shelves={this.props.shelves}
+              onBookUpdate={this.props.onBookUpdate}
             />
           ))}
         </div>

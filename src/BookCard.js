@@ -5,12 +5,12 @@ import ShelfControlBox from './ShelfControlBox';
 /**
  * @description Creates a Book
  * @param {object} props.aBook - a book to compose
- * @param {object} props.listOfShelves - list of book shelves to pass to ShelfControlBox component
- * @param {function} props.onClick - requests a books new shelf update
+ * @param {object} props.shelves - list of available book shelves
+ * @param {function} props.onBookUpdate - function to update a books shelf
  */
 class BookCard extends Component {
   handleClick = (bookID, bookSlug) => {
-    this.props.onClick(bookID, bookSlug);
+    this.props.onBookUpdate(bookID, bookSlug);
   }
   render() {
     const {title} = this.props.aBook;
@@ -30,8 +30,8 @@ class BookCard extends Component {
         </div>
         <ShelfControlBox
           shelf={this.props.aBook.shelf}
-          listOfShelves={this.props.listOfShelves}
-          onClick={(bookSlug) => this.handleClick(this.props.aBook.id, bookSlug)}
+          shelves={this.props.shelves}
+          onBookUpdate={(bookSlug) => this.handleClick(this.props.aBook.id, bookSlug)}
         />
       </div>
     );

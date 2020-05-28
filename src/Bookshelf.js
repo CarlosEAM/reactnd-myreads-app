@@ -1,36 +1,19 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {getAll,update} from './BooksAPI';
+import {getAll} from './BooksAPI';
 import Shelf from './Shelf';
 
 
 /**
  * @description Creates a Bookshelf
  * @param {object} props.bookList - list of books
+ * @param {array} props.shelves - list of available book shelves
+ * @param {function} props.onBookUpdate - function to update a books shelf
  */
 class Bookshelf extends Component {
   state = {
     booksOnShelves: [],
   }
-
-  shelves = [
-    {
-      name: "Currently Reading",
-      slug: "currentlyReading"
-    },
-    {
-      name: "Want To Read",
-      slug: "wantToRead"
-    },
-    {
-      name: "Read",
-      slug: "read"
-    },
-    {
-      name: "None",
-      slug: "none"
-    }
-  ];
 
   componentDidMount() {
     getAll().then(books => this.setState({
@@ -39,11 +22,11 @@ class Bookshelf extends Component {
   }
 
   /**
-   * @description Update a books current shelf
+   * @description Takes update request and updates the current books state
    * @param {string} bookID - book id
    * @param {string} shelf - shelf slug
    */
-  handleBookUpdate = (bookID, shelf) => {
+  handleUpdateRequest = (bookID, shelf) => {
     this.setState(prevState => ({
       booksOnShelves: prevState.booksOnShelves.filter(book => {
         if (shelf === "none") return false;
@@ -51,7 +34,8 @@ class Bookshelf extends Component {
         return book;
       })
     }));
-    update({id: bookID}, shelf);
+    // Update the database
+    this.props.onBookUpdate(bookID, shelf);
   }
 
   render() {    
@@ -62,15 +46,15 @@ class Bookshelf extends Component {
           className="nav-search-btn"
         >Search</Link>
         <h2>BUILDING BOOKSHELF...</h2>
-        {this.shelves.map(({name, slug}) => {
+        {this.props.shelves.map(({name, slug}) => {
           return (slug !== "none") 
             ? <Shelf
                 key={slug}
                 name={name}
                 slug={slug}
                 books={this.state.booksOnShelves}
-                listOfShelves={this.shelves}
-                onBookUpdate={this.handleBookUpdate}
+                shelves={this.props.shelves}
+                onBookUpdate={this.handleUpdateRequest}
               />
             : false
         })}

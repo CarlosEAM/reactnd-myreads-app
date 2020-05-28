@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {update, search} from './BooksAPI';
+import {search} from './BooksAPI';
 import SearchBar from './SearchBar';
 import SearchResult from './SearchResult';
 
 
 /**
  * @description Creates the Search page component
+ * @param {array} props.shelves - list of available book shelves
+ * @param {function} props.onBookUpdate - function to update a books shelf
  */
 class SearchPage extends Component {
   /**
@@ -21,26 +23,6 @@ class SearchPage extends Component {
     searching: false,
     clearResults: false,
   }
-
-  // Shelves with their name and slug
-  shelves = [
-    {
-      name: "Currently Reading",
-      slug: "currentlyReading"
-    },
-    {
-      name: "Want To Read",
-      slug: "wantToRead"
-    },
-    {
-      name: "Read",
-      slug: "read"
-    },
-    {
-      name: "none",
-      slug: "none"
-    }
-  ]
 
   // Using this method to request books from the database
   componentDidUpdate() {
@@ -64,15 +46,6 @@ class SearchPage extends Component {
       query: query.target.value,
       searching: true,
     });
-  }
-
-  /**
-   * @description Updates the shelf a book belongs to
-   * @param {string} bookID - book id
-   * @param {string} shelf - shelf slug
-   */
-  handleBookUpdate = (bookID, shelf) => {
-    update({id: bookID}, shelf);
   }
 
   /**
@@ -107,7 +80,7 @@ class SearchPage extends Component {
           className="nav-home-btn"
         >Back</Link>
         <SearchBar onInputChange={this.handleInputChange} inputValue={this.state.query} />
-        <SearchResult listOfShelves={this.shelves} booksFound={this.state.booksFound} onBookUpdate={this.handleBookUpdate} />
+        <SearchResult shelves={this.props.shelves} booksFound={this.state.booksFound} onBookUpdate={this.props.onBookUpdate} />
       </section>
     );
   }
