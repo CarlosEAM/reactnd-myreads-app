@@ -8,6 +8,10 @@ import SearchPage from './SearchPage';
 
 class App extends Component {
 
+  state = {
+    bookshelf: [],
+  }
+
   // List of available book shelves
   shelves = [
     {
@@ -29,11 +33,28 @@ class App extends Component {
   ]
 
   /**
+   * @description Updates the state with the latest bookshelf
+   * @param {array} books - list of book objects
+   */
+  hanldeBookshelfUpdate = (books) => {
+    this.setState({
+      bookshelf: books
+    });
+  }
+
+  /**
    * @description Update a books current shelf on the database
    * @param {string} bookID - book id
    * @param {string} shelf - shelf slug
    */
   handleBookUpdate = (bookID, shelf) => {
+    this.setState(prevState => ({
+      bookshelf: prevState.bookshelf.filter(book => {
+        if (shelf === "none") return false;
+        if (book.id === bookID) book.shelf = shelf;
+        return book;
+      })
+    }));
     update({id: bookID}, shelf);
   }
 
@@ -44,13 +65,22 @@ class App extends Component {
         <Route exact
           path="/"
           render={() => (
-            <Bookshelf shelves={this.shelves} onBookUpdate={this.handleBookUpdate} />
+            <Bookshelf
+              shelves={this.shelves}
+              booksOnShelves={this.state.bookshelf}
+              onBookshelfUpdate={this.hanldeBookshelfUpdate}
+              onBookUpdate={this.handleBookUpdate}
+            />
           )}
         />
         <Route
           path="/search"
           render={() => (
-            <SearchPage shelves={this.shelves} onBookUpdate={this.handleBookUpdate} />
+            <SearchPage
+              shelves={this.shelves}
+              booksOnShelves={this.state.bookshelf}
+              onBookUpdate={this.handleBookUpdate}
+            />
           )}
         />
       </div>

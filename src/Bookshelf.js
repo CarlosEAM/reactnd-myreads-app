@@ -8,7 +8,9 @@ import Shelf from './Shelf';
  * @description Creates a Bookshelf
  * @param {object} props.bookList - list of books
  * @param {array} props.shelves - list of available book shelves
+ * @param {array} props.booksOnShelves - book list in bookshelf
  * @param {function} props.onBookUpdate - function to update a books shelf
+ * @param {function} props.onBookshelfUpdate - function to update parents bookshelf list
  */
 class Bookshelf extends Component {
   state = {
@@ -16,26 +18,11 @@ class Bookshelf extends Component {
   }
 
   componentDidMount() {
-    getAll().then(books => this.setState({
-      booksOnShelves: books
-    }));
-  }
-
-  /**
-   * @description Takes update request and updates the current books state
-   * @param {string} bookID - book id
-   * @param {string} shelf - shelf slug
-   */
-  handleUpdateRequest = (bookID, shelf) => {
-    this.setState(prevState => ({
-      booksOnShelves: prevState.booksOnShelves.filter(book => {
-        if (shelf === "none") return false;
-        if (book.id === bookID) book.shelf = shelf;
-        return book;
-      })
-    }));
-    // Update the database
-    this.props.onBookUpdate(bookID, shelf);
+    // Only request the latest books on home page load
+    getAll().then(books => {
+      // Update parent state with it
+      this.props.onBookshelfUpdate(books)
+    });
   }
 
   render() {    
@@ -52,9 +39,9 @@ class Bookshelf extends Component {
                 key={slug}
                 name={name}
                 slug={slug}
-                books={this.state.booksOnShelves}
+                booksOnShelves={this.props.booksOnShelves}
                 shelves={this.props.shelves}
-                onBookUpdate={this.handleUpdateRequest}
+                onBookUpdate={this.props.onBookUpdate}
               />
             : false
         })}
