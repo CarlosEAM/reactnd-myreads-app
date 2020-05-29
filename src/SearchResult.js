@@ -5,6 +5,7 @@ import BookCard from './BookCard';
  * @description Display search results
  * @param {object} props.shelves - list of book shelves to pass to ShelfControlBox component
  * @param {array} props.booksFound - list of book objects found
+ * @param {array} props.booksOnShelves - book list in bookshelf
  * @param {function} props.onBookUpdate - function to update a books shelf
  */
 function SearchResult(props) {
@@ -16,6 +17,7 @@ function SearchResult(props) {
         key={book.id}
         aBook={book}
         shelves={props.shelves}
+        booksOnShelves={props.booksOnShelves}
         onBookUpdate={props.onBookUpdate}
       />
     ));

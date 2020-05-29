@@ -8,6 +8,7 @@ import SearchResult from './SearchResult';
 /**
  * @description Creates the Search page component
  * @param {array} props.shelves - list of available book shelves
+ * @param {array} props.booksOnShelves - book list in bookshelf
  * @param {function} props.onBookUpdate - function to update a books shelf
  */
 class SearchPage extends Component {
@@ -79,8 +80,16 @@ class SearchPage extends Component {
           to="/"
           className="nav-home-btn"
         >Back</Link>
-        <SearchBar onInputChange={this.handleInputChange} inputValue={this.state.query} />
-        <SearchResult shelves={this.props.shelves} booksFound={this.state.booksFound} onBookUpdate={this.props.onBookUpdate} />
+        <SearchBar
+          onInputChange={this.handleInputChange}
+          inputValue={this.state.query}
+        />
+        <SearchResult
+          shelves={this.props.shelves}
+          booksFound={this.state.booksFound}
+          booksOnShelves={this.props.booksOnShelves}
+          onBookUpdate={this.props.onBookUpdate}
+        />
       </section>
     );
   }

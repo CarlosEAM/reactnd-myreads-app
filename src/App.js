@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import {Route} from 'react-router-dom';
-import {update} from './BooksAPI';
+import {getAll, update} from './BooksAPI';
 import Bookshelf from './Bookshelf';
 import SearchPage from './SearchPage';
 
@@ -32,14 +32,17 @@ class App extends Component {
     }
   ]
 
-  /**
-   * @description Updates the state with the latest bookshelf
-   * @param {array} books - list of book objects
-   */
-  hanldeBookshelfUpdate = (books) => {
-    this.setState({
-      bookshelf: books
-    });
+  componentDidMount() {
+    // in case app reloads in search page we need a list of current bookshelf
+    this.getBookshelf();
+  }
+
+  getBookshelf = () => {
+    getAll().then(books => {
+      this.setState(prevState => ({
+        bookshelf: books,
+      }));
+    })
   }
 
   /**
@@ -68,7 +71,7 @@ class App extends Component {
             <Bookshelf
               shelves={this.shelves}
               booksOnShelves={this.state.bookshelf}
-              onBookshelfUpdate={this.hanldeBookshelfUpdate}
+              getBookshelf={this.getBookshelf}
               onBookUpdate={this.handleBookUpdate}
             />
           )}

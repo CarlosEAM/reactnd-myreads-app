@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {getAll} from './BooksAPI';
 import Shelf from './Shelf';
 
 
@@ -13,16 +12,9 @@ import Shelf from './Shelf';
  * @param {function} props.onBookshelfUpdate - function to update parents bookshelf list
  */
 class Bookshelf extends Component {
-  state = {
-    booksOnShelves: [],
-  }
-
   componentDidMount() {
-    // Only request the latest books on home page load
-    getAll().then(books => {
-      // Update parent state with it
-      this.props.onBookshelfUpdate(books)
-    });
+    // Request a fresh list on each page load
+    this.props.getBookshelf();
   }
 
   render() {    
