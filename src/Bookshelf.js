@@ -24,7 +24,6 @@ class Bookshelf extends Component {
           to="/search"
           className="nav-search-btn"
         >Search</Link>
-        <h2>BUILDING BOOKSHELF...</h2>
         {this.props.shelves.map(({name, slug}) => {
           return (slug !== "none") 
             ? <Shelf

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ShelfControlBox from './ShelfControlBox';
+import noImage from './icons/noImage.png'
 
 
 /**
@@ -25,8 +26,7 @@ class BookCard extends Component {
     // handle missing thumbnail
     const hasThumbnail = (imageLinks !== undefined)
       ? imageLinks.thumbnail 
-      : '#'
-    console.log(hasThumbnail)
+      : noImage;
 
     // Undefined means raw book result. Check if it exists in bookshelf
     if (shelf === undefined) {
