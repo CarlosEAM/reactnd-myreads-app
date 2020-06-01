@@ -9,17 +9,41 @@ import React, {Component} from 'react';
  */
 class ShelfControlBox extends Component {
   render() {
+    // onClick={()=>this.props.onBookUpdate(shelf.slug)}
+    // 
     return (
-      <ul className="control-box">
-        {this.props.shelves.map((shelf, i) => {
-          const listKey = shelf.slug + shelf.slug.length;
-          if (shelf.slug === this.props.shelf) {
-            return <li key={listKey} className="control-item-selected" onClick={()=>this.props.onBookUpdate(shelf.slug)}>{shelf.name}</li>
-          }else{
-            return <li key={listKey} onClick={()=>this.props.onBookUpdate(shelf.slug)}>{shelf.name}</li>
-          }
-        })}
-      </ul>
+      <div className="control-box">
+        <div className="control-box-wrapper">
+          <div className="control-box-title">
+            <h5>Move book to</h5>
+          </div>
+          <ul className="control-box-list">
+            {this.props.shelves.map((shelf, i) => {
+              const listKey = shelf.slug + shelf.slug.length;
+              if (shelf.slug === this.props.shelf) {
+                return (
+                  <li
+                    key={listKey}
+                    className="control-box-item item-selected"
+                    onClick={()=>this.props.onBookUpdate(shelf.slug)}
+                  >{shelf.name}
+                  </li>
+                )
+              }else{
+                return (
+                  <li
+                    key={listKey}
+                    className="control-box-item"
+                    onClick={()=>this.props.onBookUpdate(shelf.slug)}
+                  >{shelf.name}
+                  </li>
+                )
+              }
+            })}
+          </ul>
+        </div>
+        <span className="control-btn"></span>
+      </div>
     );
   }
 }

@@ -23,7 +23,7 @@ function SearchResult(props) {
     ));
   return(
     <div className="search-results">
-      <div>
+      <div className="books">
         {results}
       </div>
     </div>

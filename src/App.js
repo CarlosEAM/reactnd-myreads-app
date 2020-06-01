@@ -64,28 +64,33 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>MyReads</h1>
-        <Route exact
-          path="/"
-          render={() => (
-            <Bookshelf
-              shelves={this.shelves}
-              booksOnShelves={this.state.bookshelf}
-              getBookshelf={this.getBookshelf}
-              onBookUpdate={this.handleBookUpdate}
-            />
-          )}
-        />
-        <Route
-          path="/search"
-          render={() => (
-            <SearchPage
-              shelves={this.shelves}
-              booksOnShelves={this.state.bookshelf}
-              onBookUpdate={this.handleBookUpdate}
-            />
-          )}
-        />
+        <main className="app-content">
+          <Route exact
+            path="/"
+            render={() => (
+              <Bookshelf
+                shelves={this.shelves}
+                booksOnShelves={this.state.bookshelf}
+                getBookshelf={this.getBookshelf}
+                onBookUpdate={this.handleBookUpdate}
+              />
+            )}
+          />
+          <Route
+            path="/search"
+            render={() => (
+              <SearchPage
+                shelves={this.shelves}
+                booksOnShelves={this.state.bookshelf}
+                onBookUpdate={this.handleBookUpdate}
+              />
+            )}
+          />
+        </main>
+        <footer className="app-footer">
+          <p>Created by Carlos EAM 2020</p>
+          <p>Udacity Project</p>
+        </footer>
       </div>
     );
   }

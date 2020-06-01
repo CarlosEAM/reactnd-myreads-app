@@ -17,25 +17,29 @@ class Bookshelf extends Component {
     this.props.getBookshelf();
   }
 
-  render() {    
+  render() {
     return (
       <section className="bookshelf">
-        <Link
-          to="/search"
-          className="nav-search-btn"
-        >Search</Link>
+        <header className="bookshelf-title">
+          <h1 onClick={() => {alert(window.innerWidth)}}>MyReads</h1>
+        </header>
         {this.props.shelves.map(({name, slug}) => {
-          return (slug !== "none") 
-            ? <Shelf
-                key={slug}
-                name={name}
-                slug={slug}
-                booksOnShelves={this.props.booksOnShelves}
-                shelves={this.props.shelves}
-                onBookUpdate={this.props.onBookUpdate}
-              />
+          return (slug !== "none")
+            ? (
+                <Shelf
+                  key={slug}
+                  name={name}
+                  slug={slug}
+                  booksOnShelves={this.props.booksOnShelves}
+                  shelves={this.props.shelves}
+                  onBookUpdate={this.props.onBookUpdate}
+                />
+              )
             : false
         })}
+        <div className="nav-search-link">
+          <Link to="/search">+</Link>
+        </div>
       </section>
     );
   }

@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {search} from './BooksAPI';
 import SearchBar from './SearchBar';
 import SearchResult from './SearchResult';
+import arrow from './icons/arrow.svg'
 
 
 /**
@@ -35,7 +36,7 @@ class SearchPage extends Component {
       }, 600);
     }
     // Remove search result on text clearing
-    if (this.state.query === '' && this.state.clearResults) this.clearResults();  
+    if (this.state.query === '' && this.state.clearResults) this.clearResults();
   }
 
   /**
@@ -76,14 +77,20 @@ class SearchPage extends Component {
   render() {
     return (
       <section className="search-page">
-        <Link
-          to="/"
-          className="nav-home-btn"
-        >Back</Link>
-        <SearchBar
-          onInputChange={this.handleInputChange}
-          inputValue={this.state.query}
-        />
+        <div className="search-header">
+          <SearchBar
+            onInputChange={this.handleInputChange}
+            inputValue={this.state.query}
+          />
+          <div className="back-btn-wrapper">
+            <Link
+              to="/"
+              className="nav-home-btn"
+            >
+              <img src={arrow} alt="left arrow" />
+            </Link>
+          </div>
+        </div>
         <SearchResult
           shelves={this.props.shelves}
           booksFound={this.state.booksFound}

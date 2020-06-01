@@ -26,7 +26,10 @@ class Shelf extends Component {
 
     return (
       <section className="shelf">
-        <h3 className="shelf-title">{this.props.name}</h3>
+        <header className="shelf-title">
+          
+          <h2>{this.props.name}</h2>
+        </header>
         <div className="books">
           {bookList.map(book => (
             <BookCard

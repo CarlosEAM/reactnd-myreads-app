@@ -36,17 +36,20 @@ class BookCard extends Component {
     }
 
     return (
-      <div className="book">
-        <img src={hasThumbnail} className="book-img" width="100" height="100" alt="" />
-        <p className="book-title">{title}</p>
-        <div className="book-author">
-          {hasAuthors}
+      <div className="book-wrapper">
+        <div className="book-card">
+          <img src={hasThumbnail} className="book-card-img" width="100" height="100" alt="" />
+          <p className="book-card-title">{title}</p>
+          <div className="book-card-author">
+            <span>by:</span>
+            {hasAuthors}
+          </div>
+          <ShelfControlBox
+            shelf={shelf}
+            shelves={this.props.shelves}
+            onBookUpdate={(bookSlug) => this.handleClick(this.props.aBook.id, bookSlug)}
+          />
         </div>
-        <ShelfControlBox
-          shelf={shelf}
-          shelves={this.props.shelves}
-          onBookUpdate={(bookSlug) => this.handleClick(this.props.aBook.id, bookSlug)}
-        />
       </div>
     );
   }

@@ -1,52 +1,327 @@
+/*Globals*/
+a {
+  text-decoration: none;
+}
+/*App component*/
 .App {
+  display: flex;
+  flex-flow: column wrap;
+  overflow: hidden;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App > * {
+  flex: 1 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.app-footer {
+  padding: 8px 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app-footer {
+  background: #D58708;
+  color: #fff;
+  flex: 1;
+}
+
+.app-content {
+  flex: 1;
+}
+
+.app-footer {
+  flex: 1;
+  text-align: center;
+}
+
+.nav-search-link {
+  bottom: 16px;
+  position: fixed;
+  right: 16px;
+  z-index: 888;
+}
+
+.nav-search-link a {
+  background: #D58708;
+  border: 1px solid #855200;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,.3), 0 5px 12px 0 rgba(0,0,0,.4);
+  color: #fff;
+  display: block;
+  font-size: 2.2em;
+  height: 40px;
+  padding: 6px 8px 10px;
+  width: 40px;
+}
+
+.nav-search-link a:hover {
+  background: #FFC05B;
+}
+
+.nav-search-link a:active {
+  background: #855200;
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,.3) inset, 0 5px 12px 0 rgba(0,0,0,.4) inset;
+}
+
+/*==== Bookshelf ======================================*/
+.bookshelf {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-flow: column nowrap;
+}
+
+.bookshelf-title {
+  padding: 32px 0;
+}
+
+.bookshelf-title,
+.bookshelf-footer {
+  background: #D58708;
+  color: #fff;
+  flex: 1;
+}
+
+.bookshelf-title h1 {
+  margin: 0;
+}
+
+/*==== Shelf =======================================*/
+.shelf {
+  flex: 1;
+  padding: 0 0 32px;
+}
+
+.shelf:nth-child(3) {
+  background: whitesmoke;
+}
+
+.shelf-title {
+  position: relative;
+  text-align: left;
+}
+
+.shelf-title h2 {
+  background: #FFC05B;
+  border-bottom-right-radius: 12px;
+  border-top-right-radius: 12px;
+  color: #005640;
+  padding: 4px 16px;
+  width: 80%;
+}
+
+.books {
+  display: flex;
+  flex-flow: row wrap;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 0 8px;
 }
 
-.App-link {
-  color: #61dafb;
+/*==== SearchPage =====================================*/
+.search-page {
+  background: whitesmoke;
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: calc(100vh - 162px);
+  padding: 60px 0 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/*==== Search Header ==================================*/
+.search-header {
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  flex-flow: row nowrap;
+  position: fixed;
+  top: 0;
+  z-index: 999
 }
 
-/*BookCard*/
+.back-btn-wrapper {
+  order: 1;
+}
 
-/*This is temporary style to check component behaviour*/
+.back-btn-wrapper a {
+  background: #fff;
+  display: block;
+  height: 60px;
+  width: 60px;
+}
+
+.search-bar {
+  order: 2;
+  width: calc(100vw - 60px);
+}
+
+.search-bar input {
+  border: none;
+  border-radius: 0;
+  font-size: 1.2em;
+  padding: 18px 8px;
+  width: 100%;
+}
+
+.back-btn-wrapper a:hover,
+.back-btn-wrapper a:focus {
+  background: #FFC05B;
+  cursor: pointer;
+}
+
+.back-btn-wrapper a:active {
+  background: #855200;
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,.3) inset, 0 5px 12px 0 rgba(0,0,0,.4) inset;
+}
+
+.search-bar input:focus,
+.search-bar input:focus > .back-btn-wrapper {
+  box-shadow: 0 3px 6px 0 rgba(0,0,0,.3), 0 4px 16px 0 rgba(0,0,0,.34);
+  outline: none;
+}
+
+
+/*==== SearchResults ==================================*/
+.search-results {
+  padding: 32px 8px;
+}
+
+/*==== BookCard =======================================*/
+.book-wrapper {
+  margin: 8px;
+}
+
+.book-card {
+  margin: 0 auto;
+  position: relative;
+  width: 128px;
+}
+
+.book-card-img {
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .2), 0 3px 16px 0 rgba(0, 0, 0, 0.24);
+  height: auto;
+  width: 100%;
+  height: 168px;
+}
+
+.book-card-title {
+  font-weight: bold;
+}
+
+.book-card-author p {
+  color: #855200;
+  margin: 0;
+}
+
+.book-card-author span {
+  font-style: italic;
+}
+
+/*==== ShelfControlBox ================================*/
 .control-box {
+  background: #FFC05B;
+  border: 1px solid #D58708;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.32), 0 6px 20px 0 rgba(0, 0, 0, 0.34);
+  height: 32px;
+  left: -10px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  transform: translate(114px, 120px);
+  -webkit-transform: translate(114px, 120px);
+  top: 28px;
+  width: 32px;
+  z-index: 666;
+}
+
+.control-box-wrapper {
+  transform: scale(0);
+  -webkit-transform: scale(0);
+  transition: transform .1s;
+  visibility: hidden;
+}
+
+.control-box-title h5 {
+  margin: 6px 0 0;
+}
+
+.control-box-list {
+  list-style: none;
+  margin: 8px 0 16px;
   padding: 0;
 }
-.control-box li {
-  list-style: none;
+
+.control-box-item {
+  padding: 8px 0;
 }
 
-.control-item-selected {
-  color: orange;
+.control-box-item:hover {
+  background: #3DAA8F;
+  cursor: pointer;
+}
+
+.control-box-item:active {
+  background: #058B69;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.3) inset;
+}
+
+.item-selected {
+  background: #058B69;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.3) inset;
+  color: #fff;
+}
+
+.control-btn {
+  border: solid #000;
+  border-width: 3px 3px 0 0;
+  bottom: 12px;
+  display: inline-block;
+  left: 10px;
+  padding: 5px;
+  position: absolute;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(136deg);
+}
+
+.control-box:hover,
+.control-box:active  {
+  border-radius: 4%;
+  height: 156px;
+  padding: 0 0 26px;
+  transform: translate(-2px, -32px);
+  -webkit-transform: translate(-2px, -32px);
+  width: 152px;
+}
+
+.control-box:hover > .control-box-wrapper,
+.control-box:active > .control-box-wrapper {
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  visibility: visible;
+}
+
+.control-box:hover > .control-btn,
+.control-box:active > .control-btn {
+  opacity: 0;
+}
+
+/*media querys*/
+@media (min-width: 360px) {
+  .book-wrapper {
+    margin: 8px 16px;
+  }
+}
+
+@media (min-width: 576px) {
+  .book-wrapper {
+    margin: 8px 24px;
+  }
+}
+
+@media (min-width: 768px) {
+  .nav-search-link {
+    bottom: 24px;
+    right: 24px;
+  }
+
+  .shelf-title h2 {
+    width: 40%;
+    padding: 4px 0 4px 32px;
+  }
 }
