@@ -37,6 +37,7 @@ class App extends Component {
     this.getBookshelf();
   }
 
+  // Request all the books with a shelf assigned to them
   getBookshelf = () => {
     getAll().then(books => {
       this.setState(prevState => ({
