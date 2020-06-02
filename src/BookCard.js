@@ -21,11 +21,11 @@ class BookCard extends Component {
     // handle missing author
     const hasAuthors = (authors !== undefined)
       ? authors.map(author => (<p key={this.props.aBook.id + author}>{author}</p>))
-      : "No authors found";
+      : <p>No authors found</p>;
 
     // handle missing thumbnail
     const hasThumbnail = (imageLinks !== undefined)
-      ? imageLinks.thumbnail 
+      ? imageLinks.thumbnail
       : noImage;
 
     // Undefined means raw book result. Check if it exists in bookshelf
