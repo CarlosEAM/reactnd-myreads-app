@@ -2,6 +2,8 @@
 a {
   text-decoration: none;
 }
+
+
 /*App component*/
 .App {
   display: flex;
@@ -19,7 +21,7 @@ a {
 }
 
 .app-footer {
-  background: #D58708;
+  background: #d58708;
   color: #fff;
   flex: 1;
 }
@@ -41,10 +43,10 @@ a {
 }
 
 .nav-search-link a {
-  background: #D58708;
+  background: #d58708;
   border: 1px solid #855200;
   border-radius: 50%;
-  box-shadow: 0 4px 6px 0 rgba(0,0,0,.3), 0 5px 12px 0 rgba(0,0,0,.4);
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.3), 0 5px 12px 0 rgba(0,0,0,0.4);
   color: #fff;
   display: block;
   font-size: 2.2em;
@@ -54,13 +56,14 @@ a {
 }
 
 .nav-search-link a:hover {
-  background: #FFC05B;
+  background: #ffc05b;
 }
 
 .nav-search-link a:active {
   background: #855200;
-  box-shadow: 0 4px 6px 0 rgba(0,0,0,.3) inset, 0 5px 12px 0 rgba(0,0,0,.4) inset;
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.3) inset, 0 5px 12px 0 rgba(0,0,0,0.4) inset;
 }
+
 
 /*==== Bookshelf ======================================*/
 .bookshelf {
@@ -74,7 +77,7 @@ a {
 
 .bookshelf-title,
 .bookshelf-footer {
-  background: #D58708;
+  background: #d58708;
   color: #fff;
   flex: 1;
 }
@@ -82,6 +85,7 @@ a {
 .bookshelf-title h1 {
   margin: 0;
 }
+
 
 /*==== Shelf =======================================*/
 .shelf {
@@ -99,7 +103,7 @@ a {
 }
 
 .shelf-title h2 {
-  background: #FFC05B;
+  background: #ffc05b;
   border-bottom-right-radius: 12px;
   border-top-right-radius: 12px;
   color: #005640;
@@ -114,6 +118,7 @@ a {
   padding: 0 8px;
 }
 
+
 /*==== SearchPage =====================================*/
 .search-page {
   background: whitesmoke;
@@ -122,6 +127,7 @@ a {
   min-height: calc(100vh - 162px);
   padding: 60px 0 0;
 }
+
 
 /*==== Search Header ==================================*/
 .search-header {
@@ -160,18 +166,18 @@ a {
 
 .back-btn-wrapper a:hover,
 .back-btn-wrapper a:focus {
-  background: #FFC05B;
+  background: #ffc05b;
   cursor: pointer;
 }
 
 .back-btn-wrapper a:active {
   background: #855200;
-  box-shadow: 0 4px 6px 0 rgba(0,0,0,.3) inset, 0 5px 12px 0 rgba(0,0,0,.4) inset;
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.3) inset, 0 5px 12px 0 rgba(0,0,0,0.4) inset;
 }
 
 .search-bar input:focus,
 .search-bar input:focus > .back-btn-wrapper {
-  box-shadow: 0 3px 6px 0 rgba(0,0,0,.3), 0 4px 16px 0 rgba(0,0,0,.34);
+  box-shadow: 0 3px 6px 0 rgba(0,0,0,0.3), 0 4px 16px 0 rgba(0,0,0,.34);
   outline: none;
 }
 
@@ -180,6 +186,7 @@ a {
 .search-results {
   padding: 32px 8px;
 }
+
 
 /*==== BookCard =======================================*/
 .book-wrapper {
@@ -193,7 +200,7 @@ a {
 }
 
 .book-card-img {
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .2), 0 3px 16px 0 rgba(0, 0, 0, 0.24);
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2), 0 3px 16px 0 rgba(0, 0, 0, 0.24);
   height: auto;
   width: 100%;
   height: 168px;
@@ -212,10 +219,11 @@ a {
   font-style: italic;
 }
 
+
 /*==== ShelfControlBox ================================*/
 .control-box {
-  background: #FFC05B;
-  border: 1px solid #D58708;
+  background: #ffc05b;
+  border: 1px solid #d58708;
   border-radius: 50%;
   box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.32), 0 6px 20px 0 rgba(0, 0, 0, 0.34);
   height: 32px;
@@ -233,7 +241,7 @@ a {
 .control-box-wrapper {
   transform: scale(0);
   -webkit-transform: scale(0);
-  transition: transform .1s;
+  transition: transform 0.1s;
   visibility: hidden;
 }
 
@@ -252,17 +260,17 @@ a {
 }
 
 .control-box-item:hover {
-  background: #3DAA8F;
+  background: #3daa8f;
   cursor: pointer;
 }
 
 .control-box-item:active {
-  background: #058B69;
+  background: #058b69;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.3) inset;
 }
 
 .item-selected {
-  background: #058B69;
+  background: #058b69;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.3) inset;
   color: #fff;
 }
@@ -279,6 +287,8 @@ a {
   -webkit-transform: rotate(136deg);
 }
 
+
+/*Most mobile browsers will treat this as a click event, activating the style on tap*/
 .control-box:hover,
 .control-box:active  {
   border-radius: 4%;
@@ -301,7 +311,7 @@ a {
   opacity: 0;
 }
 
-/*media querys*/
+/*MEDIA QUERIES*/
 @media (min-width: 360px) {
   .book-wrapper {
     margin: 8px 16px;
