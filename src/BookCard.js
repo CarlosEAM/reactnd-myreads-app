@@ -30,9 +30,15 @@ class BookCard extends Component {
 
     // Undefined means raw book result. Check if it exists in bookshelf
     if (shelf === undefined) {
-      this.props.booksOnShelves.forEach(book => {
-        if (book.id === this.props.aBook.id) shelf = book.shelf;
-      });
+      for (let i=0; i<this.props.booksOnShelves.length; i++) {
+        let book = this.props.booksOnShelves[i];
+        if (book.id === this.props.aBook.id) {
+          shelf = book.shelf;
+          break;
+        } else {
+          shelf = 'none';
+        }
+      }
     }
 
     return (

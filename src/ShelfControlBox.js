@@ -9,8 +9,6 @@ import React, {Component} from 'react';
  */
 class ShelfControlBox extends Component {
   render() {
-    // onClick={()=>this.props.onBookUpdate(shelf.slug)}
-    // 
     return (
       <div className="control-box">
         <div className="control-box-wrapper">
