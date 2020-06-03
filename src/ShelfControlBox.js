@@ -17,25 +17,14 @@ const ShelfControlBox = (props) => {
         <ul className="control-box-list">
           {props.shelves.map((shelf, i) => {
             const listKey = shelf.slug + shelf.slug.length;
-            if (shelf.slug === props.shelf) {
-              return (
-                <li
-                  key={listKey}
-                  className="control-box-item item-selected"
-                  onClick={()=>props.onBookUpdate(shelf.slug)}
-                >{shelf.name}
-                </li>
-              )
-            }else{
-              return (
-                <li
-                  key={listKey}
-                  className="control-box-item"
-                  onClick={()=>props.onBookUpdate(shelf.slug)}
-                >{shelf.name}
-                </li>
-              )
-            }
+            return (
+              <li
+                key={listKey}
+                className={(shelf.slug === props.shelf) ? "control-box-item item-selected" : "control-box-item"}
+                onClick={()=>props.onBookUpdate(shelf.slug)}
+              >{shelf.name}
+              </li>
+            )
           })}
         </ul>
       </div>
