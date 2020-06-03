@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 
 /**
@@ -7,43 +7,41 @@ import React, {Component} from 'react';
  * @param {array} props.shelves - list of available book shelves
  * @param {function} props.onBookUpdate - function to update a books shelf
  */
-class ShelfControlBox extends Component {
-  render() {
-    return (
-      <div className="control-box">
-        <div className="control-box-wrapper">
-          <div className="control-box-title">
-            <h5>Move book to</h5>
-          </div>
-          <ul className="control-box-list">
-            {this.props.shelves.map((shelf, i) => {
-              const listKey = shelf.slug + shelf.slug.length;
-              if (shelf.slug === this.props.shelf) {
-                return (
-                  <li
-                    key={listKey}
-                    className="control-box-item item-selected"
-                    onClick={()=>this.props.onBookUpdate(shelf.slug)}
-                  >{shelf.name}
-                  </li>
-                )
-              }else{
-                return (
-                  <li
-                    key={listKey}
-                    className="control-box-item"
-                    onClick={()=>this.props.onBookUpdate(shelf.slug)}
-                  >{shelf.name}
-                  </li>
-                )
-              }
-            })}
-          </ul>
+const ShelfControlBox = (props) => {
+  return (
+    <div className="control-box">
+      <div className="control-box-wrapper">
+        <div className="control-box-title">
+          <h5>Move book to</h5>
         </div>
-        <span className="control-btn"></span>
+        <ul className="control-box-list">
+          {props.shelves.map((shelf, i) => {
+            const listKey = shelf.slug + shelf.slug.length;
+            if (shelf.slug === props.shelf) {
+              return (
+                <li
+                  key={listKey}
+                  className="control-box-item item-selected"
+                  onClick={()=>props.onBookUpdate(shelf.slug)}
+                >{shelf.name}
+                </li>
+              )
+            }else{
+              return (
+                <li
+                  key={listKey}
+                  className="control-box-item"
+                  onClick={()=>props.onBookUpdate(shelf.slug)}
+                >{shelf.name}
+                </li>
+              )
+            }
+          })}
+        </ul>
       </div>
-    );
-  }
+      <span className="control-btn"></span>
+    </div>
+  );
 }
 
 export default ShelfControlBox;
