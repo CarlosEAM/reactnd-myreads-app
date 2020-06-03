@@ -54,7 +54,6 @@ class App extends Component {
   handleBookUpdate = (bookID, shelf) => {
     this.setState(prevState => ({
       bookshelf: prevState.bookshelf.filter(book => {
-        if (shelf === "none") return false;
         if (book.id === bookID) book.shelf = shelf;
         return book;
       })
